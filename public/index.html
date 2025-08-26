@@ -1,85 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-     <title> Zark Project  </title>
-    <link rel="stylesheet" href="style.css">
+   <head>
+      <meta charset="utf-8">
+      <title>Digital Clock with Glowing Effect | CodingNepal</title>
+      <link rel="stylesheet" href="style.css">
    </head>
-<body>
-<div class="bubbles">
-  <span class="one"></span>
-  <span class="two"></span>
-  <span class="three"></span>
-  <span class="four"></span>
-  <span class="five"></span>
-  <span class="six"></span>
-  <span class="seven"></span>
-  <span class="seven"></span>
-</div>
-<div class="bubbles">
-  <span class="one"></span>
-  <span class="two"></span>
-  <span class="three"></span>
-  <span class="four"></span>
-  <span class="five"></span>
-  <span class="six"></span>
-  <span class="seven"></span>
-  <span class="seven"></span>
-</div>
-<div class="bubbles">
-  <span class="one"></span>
-  <span class="two"></span>
-  <span class="three"></span>
-  <span class="four"></span>
-  <span class="five"></span>
-  <span class="six"></span>
-  <span class="seven"></span>
-  <span class="seven"></span>
-</div>
-<div class="bubbles">
-  <span class="one"></span>
-  <span class="two"></span>
-  <span class="three"></span>
-  <span class="four"></span>
-  <span class="five"></span>
-  <span class="six"></span>
-  <span class="seven"></span>
-  <span class="seven"></span>
-</div>
- <div class="container">
-   <form action="#" name="forms">
-     <input type="text" name="answer">
-     <div class="buttons">
-       <input type="button" value="AC" onclick="forms.answer.value = ''">
-       <input type="button" value="DEL" onclick="forms.answer.value = forms.answer.value.substr(0 , forms.answer.value.length -1)">
-       <input type="button" value="%" onclick="forms.answer.value += '%'">
-       <input type="button" value="/" onclick="forms.answer.value += '/'">
-     </div>
-     <div class="buttons">
-       <input type="button" value="7" onclick="forms.answer.value += '7'">
-       <input type="button" value="8" onclick="forms.answer.value += '8'">
-       <input type="button" value="9" onclick="forms.answer.value += '9'">
-       <input type="button" value="*" onclick="forms.answer.value += '*'">
-     </div>
-     <div class="buttons">
-       <input type="button" value="4" onclick="forms.answer.value += '4'">
-       <input type="button" value="5" onclick="forms.answer.value += '5'">
-       <input type="button" value="6" onclick="forms.answer.value += '6'">
-       <input type="button" value="-" onclick="forms.answer.value += '-'">
-     </div>
-     <div class="buttons">
-       <input type="button" value="1" onclick="forms.answer.value += '1'">
-       <input type="button" value="2" onclick="forms.answer.value += '2'">
-       <input type="button" value="3" onclick="forms.answer.value += '3'">
-       <input type="button" value="+" onclick="forms.answer.value += '+'">
-     </div>
-     <div class="buttons">
-       <input type="button" value="0"  onclick="forms.answer.value += '0'">
-       <input type="button" value="00" onclick="forms.answer.value += '00'">
-       <input type="button" value="." onclick="forms.answer.value += '.'">
-       <input type="button" value="=" onclick="forms.answer.value = eval(forms.answer.value)">
-     </div>
-   </form>
- </div>
-</body>
+   <body>
+      <div class="wrapper">
+         <div class="display">
+            <div id="time"></div>
+         </div>
+         <span></span>
+         <span></span>
+      </div>
+      <script>
+         setInterval(()=>{
+           const time = document.querySelector(".display #time");
+           let date = new Date();
+           let hours = date.getHours();
+           let minutes = date.getMinutes();
+           let seconds = date.getSeconds();
+           let day_night = "AM";
+           if(hours > 12){
+             day_night = "PM";
+             hours = hours - 12;
+           }
+           if(seconds < 10){
+             seconds = "0" + seconds;
+           }
+           if(minutes < 10){
+             minutes = "0" + minutes;
+           }
+           if(hours < 10){
+             hours = "0" + hours;
+           }
+           time.textContent = hours + ":" + minutes + ":" + seconds + " "+ day_night;
+         });
+      </script>
+   </body>
 </html>
