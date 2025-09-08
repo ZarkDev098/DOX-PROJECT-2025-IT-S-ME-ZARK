@@ -58,11 +58,21 @@
       0%, 93%, 100% { opacity: 0; }
       94% { opacity: 0.7; }
       95% { opacity: 0; }
-      97% { opacity: 0.8; }
+      97% { opacity: 0.9; }
       98% { opacity: 0; }
     }
+    .shake {
+      animation: shakeBox 0.25s;
+    }
+    @keyframes shakeBox {
+      0% { transform: translate(0, 0);}
+      15% { transform: translate(-6px, 3px);}
+      30% { transform: translate(5px, -5px);}
+      45% { transform: translate(-6px, 6px);}
+      60% { transform: translate(7px, 1px);}
+      100% { transform: translate(0, 0);}
+    }
 
-    /* Thunderclouds (SVG) */
     .clouds {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 40vh;
@@ -72,7 +82,6 @@
       filter: blur(1px);
     }
 
-    /* Main UI */
     .prompt-container, .members-container {
       background: rgba(33,37,41,0.94);
       border: 3px solid #41e7ff;
@@ -84,6 +93,7 @@
       z-index: 40;
       position: relative;
       animation: fadeinbox 1s;
+      transition: box-shadow 0.3s, border-color 0.15s;
     }
     @keyframes fadeinbox {
       from { opacity: 0; transform: scale(0.8);}
@@ -109,8 +119,8 @@
       font-size: 2.3rem;
       margin-bottom: 10px;
       animation: thunderShake 1.3s infinite;
-      color: #fff;
-      text-shadow: 0 0 20px #41e7ff99;
+      color: #fffc;
+      text-shadow: 0 0 25px #41e7ffcc, 0 0 6px #fff;
     }
     @keyframes thunderShake {
       0%, 100% { transform: translateX(0);}
@@ -161,6 +171,7 @@
     .members-container {
       display: none;
       animation: fadeinbox 1s;
+      max-width: 360px;
     }
     .members-title {
       font-size: 1.5rem;
@@ -178,6 +189,29 @@
       font-size: 1.6em;
       animation: thunderShake 1.4s infinite;
     }
+
+    /* Scrollable Members List */
+    .scroll-wrapper {
+      position: relative;
+      max-height: 210px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px #41e7ff20;
+      scrollbar-width: thin;
+      scrollbar-color: #41e7ff #232526;
+      background: rgba(36, 49, 62, 0.9);
+    }
+    .scroll-wrapper::-webkit-scrollbar {
+      width: 8px;
+      background: #232526;
+      border-radius: 8px;
+    }
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #41e7ffb0;
+      border-radius: 8px;
+    }
+
     ul.member-list {
       list-style: none;
       padding: 0;
@@ -220,6 +254,10 @@
     ul.member-list li:nth-child(4) { animation-delay: 1.0s;}
     ul.member-list li:nth-child(5) { animation-delay: 1.2s;}
     ul.member-list li:nth-child(6) { animation-delay: 1.4s;}
+    ul.member-list li:nth-child(7) { animation-delay: 1.6s;}
+    ul.member-list li:nth-child(8) { animation-delay: 1.8s;}
+    ul.member-list li:nth-child(9) { animation-delay: 2.0s;}
+    ul.member-list li:nth-child(10) { animation-delay: 2.2s;}
     @keyframes bounceInList {
       0%   { opacity: 0; transform: scale(0.7) translateY(40px);}
       55%  { opacity: 1; transform: scale(1.13) translateY(-8px);}
@@ -230,10 +268,36 @@
       from { opacity: 0;}
       to   { opacity: 1;}
     }
+
+    /* Scroll Down Arrow Animation */
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 3px;
+      transform: translateX(-50%);
+      color: #41e7ff;
+      font-size: 1.7em;
+      opacity: 0.8;
+      animation: bounceArrow 1.2s infinite;
+      pointer-events: none;
+      z-index: 99;
+      filter: drop-shadow(0 2px 8px #41e7ff60);
+      transition: opacity 0.3s;
+      user-select: none;
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translate(-50%, 0);}
+      50% { transform: translate(-50%, 10px);}
+    }
+    .scroll-indicator.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
     /* Responsive */
     @media (max-width: 550px) {
       .prompt-container, .members-container { padding: 14px 2vw; min-width: unset; }
       .members-title { font-size: 1.1rem;}
+      .scroll-wrapper { max-height: 130px;}
       ul.member-list li { font-size: 1rem;}
     }
   </style>
@@ -254,7 +318,7 @@
   <!-- Prompt Section -->
   <div class="prompt-container" id="prompt">
     <div class="question">
-      <span class="storm-icon">☠️</span>
+      <span class="storm-icon">⚡️</span>
       DO YOU WANT TO SEE <b>UNDEFEATED TEAM</b>
     </div>
     <div class="yesno-btns">
@@ -270,19 +334,23 @@
       Undefeated Team
       <span class="storm-emoji">⛈️</span>
     </div>
-    <ul class="member-list">
-      <li>Clark</li>
-      <li>Shane</li>
-      <li>Akia</li>
-      <li>Clark</li>
-      <li>Kyoto</li>
-      <li>Omai</li>
-      <li>Misaki</li>
-      <li>Shayun bae</li>
-      <li>Sanji</li>
-      <li>Hikari</li>
-    </ul>
+    <div class="scroll-wrapper" id="scrollWrapper">
+      <ul class="member-list">
+        <li>Clark</li>
+        <li>Shane</li>
+        <li>Akia</li>
+        <li>Clark</li>
+        <li>Kyoto</li>
+        <li>Omai</li>
+        <li>Misaki</li>
+        <li>Shayun bae</li>
+        <li>Sanji</li>
+        <li>Hikari</li>
+      </ul>
+      <div class="scroll-indicator" id="scrollIndicator">▼</div>
+    </div>
   </div>
+  <audio id="thunder-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c78c9f99.mp3"></audio>
   <script>
     // Rain drops generator
     const rain = document.getElementById('rain');
@@ -301,6 +369,29 @@
     }
     createRain();
     window.addEventListener('resize', createRain);
+
+    // Lightning shake and thunder sound
+    const lightning = document.querySelector('.lightning');
+    const boxes = [document.getElementById('prompt'), document.getElementById('members')];
+    const thunderAudio = document.getElementById('thunder-audio');
+    let thunderAllowed = false;
+    document.body.addEventListener('mousedown', ()=>{thunderAllowed=true;});
+    document.body.addEventListener('touchstart', ()=>{thunderAllowed=true;});
+    lightning.addEventListener('animationiteration', ()=>{
+      if(Math.random()<0.7){
+        boxes.forEach(box=>{
+          if(box.style.display!=='none'){
+            box.classList.add('shake');
+            setTimeout(()=>box.classList.remove('shake'), 400);
+          }
+        });
+        if (thunderAllowed && Math.random()<0.6) {
+          thunderAudio.currentTime = 0;
+          thunderAudio.volume = 0.35 + Math.random()*0.3;
+          thunderAudio.play();
+        }
+      }
+    });
 
     // UI logic
     const yesBtn = document.getElementById('yesBtn');
@@ -322,11 +413,35 @@
           void li.offsetWidth;
           li.style.animation = "";
         });
+        checkScrollIndicator(); // Show/hide scroll arrow
       }, 500);
     };
     noBtn.onclick = function() {
       noMessage.style.display = 'block';
     };
+
+    // Scroll Indicator Logic
+    const scrollWrapper = document.getElementById('scrollWrapper');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    function checkScrollIndicator() {
+      // Show if scrollable
+      if (scrollWrapper.scrollHeight > scrollWrapper.clientHeight + 4) {
+        scrollIndicator.classList.remove('hide');
+      } else {
+        scrollIndicator.classList.add('hide');
+      }
+    }
+    // Hide arrow when scrolled to bottom
+    scrollWrapper.addEventListener('scroll', () => {
+      if (scrollWrapper.scrollTop + scrollWrapper.clientHeight >= scrollWrapper.scrollHeight - 2) {
+        scrollIndicator.classList.add('hide');
+      } else {
+        scrollIndicator.classList.remove('hide');
+      }
+    });
+    // Also check on window resize and after page load
+    window.addEventListener('resize', checkScrollIndicator);
+    window.addEventListener('DOMContentLoaded', checkScrollIndicator);
   </script>
 </body>
 </html>
