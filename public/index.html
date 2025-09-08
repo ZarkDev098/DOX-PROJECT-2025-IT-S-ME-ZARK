@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="tl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Undefeated Members 💕</title>
+  <title>Undefeated Team ⚡</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
@@ -11,142 +11,172 @@
       padding: 0;
     }
     body {
-      background: linear-gradient(135deg, #fceabb 0%, #f8b6d2 50%, #b8c6ff 100%);
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       font-family: 'Segoe UI', Arial, sans-serif;
       font-weight: bold;
+      letter-spacing: 0.5px;
+      background: linear-gradient(120deg, #232526 0%, #414345 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
+    }
+    * { font-weight: bold !important; }
+
+    /* Stormy rain effect */
+    .rain {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 10;
       overflow: hidden;
     }
-    * {
-      font-weight: bold !important;
-      letter-spacing: 0.5px;
+    .drop {
+      position: absolute;
+      bottom: 100%;
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(to bottom, #7fd0ff 50%, #fff0 100%);
+      opacity: 0.35;
+      animation: raindrop 0.8s linear infinite;
     }
-    /* Animated hearts background */
-    .hearts-bg {
+    @keyframes raindrop {
+      to { transform: translateY(110vh); }
+    }
+    /* Lightning flashes */
+    .lightning {
       position: fixed;
       inset: 0;
+      background: #fff;
+      opacity: 0;
       pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+      z-index: 30;
+      animation: lightningFlash 5s infinite;
     }
-    .heart-anim {
-      position: absolute;
-      font-size: 32px;
-      opacity: 0.6;
-      animation: float 7s linear infinite;
-      user-select: none;
-    }
-    .heart-anim:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .heart-anim:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 40px; }
-    .heart-anim:nth-child(3) { left: 55%; animation-delay: 1.5s; font-size: 28px;}
-    .heart-anim:nth-child(4) { left: 80%; animation-delay: 3s; }
-    .heart-anim:nth-child(5) { left: 65%; animation-delay: 4.2s; font-size: 38px;}
-    .heart-anim:nth-child(6) { left: 35%; animation-delay: 2.8s; font-size: 24px;}
-    .heart-anim:nth-child(7) { left: 85%; animation-delay: 5s; font-size: 34px;}
-    @keyframes float {
-      0%   { top: 110%; opacity: 0.7; transform: scale(0.85) rotate(-6deg);}
-      40%  { opacity: 1;}
-      100% { top: -10%; opacity: 0.3; transform: scale(1.18) rotate(13deg);}
+    @keyframes lightningFlash {
+      0%, 93%, 100% { opacity: 0; }
+      94% { opacity: 0.7; }
+      95% { opacity: 0; }
+      97% { opacity: 0.8; }
+      98% { opacity: 0; }
     }
 
+    /* Thunderclouds (SVG) */
+    .clouds {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 40vh;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.45;
+      filter: blur(1px);
+    }
+
+    /* Main UI */
     .prompt-container, .members-container {
-      background: rgba(255,255,255,0.93);
-      padding: 38px 45px;
+      background: rgba(33,37,41,0.94);
+      border: 3px solid #41e7ff;
       border-radius: 20px;
-      box-shadow: 0 4px 24px #f8b6d280, 0 1.5px 6px #fca3cc40;
+      padding: 36px 36px 30px 36px;
+      box-shadow: 0 0 32px #41e7ff70, 0 2px 16px #0008;
       text-align: center;
       min-width: 310px;
-      z-index: 1;
+      z-index: 40;
       position: relative;
-      border: 2.5px solid #fca3cc;
-      animation: fadeScaleIn 1s;
+      animation: fadeinbox 1s;
     }
-    @keyframes fadeScaleIn {
+    @keyframes fadeinbox {
       from { opacity: 0; transform: scale(0.8);}
-      to   { opacity: 1; transform: scale(1);}
+      to { opacity: 1; transform: scale(1);}
     }
     .question {
-      font-size: 1.43rem;
-      margin-bottom: 30px;
-      color: #d72660;
-      letter-spacing: 1.2px;
+      font-size: 1.3rem;
+      color: #41e7ff;
+      margin-bottom: 28px;
+      text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;
+      letter-spacing: 1.4px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: fadeInDown 1s;
+      animation: thunderText 2.2s infinite alternate;
     }
-    .question .heart-q {
-      font-size: 2rem;
+    @keyframes thunderText {
+      0%, 60% { text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;}
+      70% { text-shadow: 0 0 22px #fff, 0 4px 12px #41e7ff;}
+      100% { text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;}
+    }
+    .storm-icon {
+      font-size: 2.3rem;
       margin-bottom: 10px;
-      animation: pulse 1.1s infinite;
+      animation: thunderShake 1.3s infinite;
+      color: #fff;
+      text-shadow: 0 0 20px #41e7ff99;
     }
-    @keyframes pulse {
-      0%,100% { transform: scale(1);}
-      50% { transform: scale(1.22);}
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px);}
-      to   { opacity: 1; transform: translateY(0);}
+    @keyframes thunderShake {
+      0%, 100% { transform: translateX(0);}
+      10% { transform: translateX(-2px);}
+      20% { transform: translateX(3px);}
+      22% { transform: translateX(-2px);}
+      25% { transform: translateX(2px);}
+      30% { transform: translateX(-1px);}
+      32% { transform: translateX(1px);}
+      35% { transform: translateX(0);}
     }
     .yesno-btns button {
       font-size: 1.08rem;
-      padding: 11px 30px;
+      padding: 12px 36px;
       margin: 0 13px;
       border-radius: 8px;
       border: none;
-      background: linear-gradient(90deg, #ff9eb5 0%, #f6b7f9 100%);
-      color: #fff;
+      background: linear-gradient(90deg, #41e7ff 0%, #124c5f 100%);
+      color: #20262b;
       cursor: pointer;
-      box-shadow: 0 2px 8px #fca3cc30;
-      transition: background 0.18s, transform 0.18s;
+      font-weight: bold;
+      box-shadow: 0 2px 12px #41e7ff60;
+      transition: background 0.18s, color 0.18s, transform 0.12s;
       outline: none;
-      border-bottom: 3px solid #fca3cc;
+      border-bottom: 3px solid #41e7ff;
       position: relative;
       animation: fadeIn 1.1s;
+      letter-spacing: 1.2px;
     }
     .yesno-btns button:hover {
-      background: linear-gradient(90deg, #ffb7e0 0%, #b8c6ff 100%);
+      background: linear-gradient(90deg, #fff 0%, #41e7ff 100%);
+      color: #124c5f;
       transform: scale(1.09);
-      color: #d72660;
+      filter: brightness(1.2);
     }
     #no-message {
       margin-top: 25px;
-      color: #a21caf;
+      color: #41e7ff;
       font-size: 1.14rem;
       display: none;
-      letter-spacing: 0.5px;
-      background: #f3e8ff;
+      background: #232526;
       padding: 10px 15px;
       border-radius: 8px;
-      border: 1px solid #fca3cc;
-      box-shadow: 0 2px 8px #fca3cc1a;
+      border: 1.5px solid #41e7ff;
+      box-shadow: 0 2px 8px #41e7ff60;
       animation: fadeIn 0.8s;
     }
     .members-container {
       display: none;
-      animation: fadeIn 0.7s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0;}
-      to   { opacity: 1;}
+      animation: fadeinbox 1s;
     }
     .members-title {
       font-size: 1.5rem;
-      color: #a21caf;
-      margin-bottom: 20px;
+      color: #fff;
+      margin-bottom: 21px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      animation: fadeScaleIn 1s;
+      gap: 10px;
+      letter-spacing: 1.2px;
+      animation: thunderText 2.2s infinite alternate;
+      text-shadow: 0 0 18px #41e7ff80, 0 2px 8px #000a;
     }
-    .members-title .heart-title {
-      font-size: 1.5em;
-      animation: pulse 1.1s infinite;
+    .members-title .storm-emoji {
+      font-size: 1.6em;
+      animation: thunderShake 1.4s infinite;
     }
     ul.member-list {
       list-style: none;
@@ -155,75 +185,90 @@
     }
     ul.member-list li {
       font-size: 1.15rem;
-      background: #ffe0f1;
+      background: #232e3a;
       margin: 10px 0;
-      padding: 10px 0 10px 0;
+      padding: 13px 0 13px 0;
       border-radius: 8px;
-      color: #d72660;
-      box-shadow: 0 2px 8px #fca3cc1a;
+      color: #41e7ff;
+      box-shadow: 0 2px 8px #41e7ff1a;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       justify-content: center;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.1px;
       position: relative;
       opacity: 0;
-      transform: translateX(-40px);
-      animation: slideIn 0.7s forwards;
+      transform: scale(0.7) translateY(40px);
+      animation: bounceInList 0.7s forwards;
+      font-weight: bold;
+      border-left: 4px solid #41e7ff;
+      border-right: 4px solid #41e7ff;
+      text-shadow: 0 0 8px #41e7ff40;
     }
     ul.member-list li::before {
-      content: "💕";
+      content: "⚡";
       font-size: 1.3em;
-      margin-right: 8px;
-      animation: pulse 1.2s infinite;
+      margin-right: 10px;
+      animation: thunderShake 1.4s infinite;
+      color: #fff;
+      text-shadow: 0 0 12px #41e7ff99;
     }
     /* Staggered animation for each member */
-    ul.member-list li:nth-child(1) { animation-delay: 0.2s;}
-    ul.member-list li:nth-child(2) { animation-delay: 0.4s;}
-    ul.member-list li:nth-child(3) { animation-delay: 0.6s;}
-    ul.member-list li:nth-child(4) { animation-delay: 0.8s;}
-    ul.member-list li:nth-child(5) { animation-delay: 1.0s;}
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-40px);}
-      to   { opacity: 1; transform: translateX(0);}
+    ul.member-list li:nth-child(1) { animation-delay: 0.4s;}
+    ul.member-list li:nth-child(2) { animation-delay: 0.6s;}
+    ul.member-list li:nth-child(3) { animation-delay: 0.8s;}
+    ul.member-list li:nth-child(4) { animation-delay: 1.0s;}
+    ul.member-list li:nth-child(5) { animation-delay: 1.2s;}
+    ul.member-list li:nth-child(6) { animation-delay: 1.4s;}
+    @keyframes bounceInList {
+      0%   { opacity: 0; transform: scale(0.7) translateY(40px);}
+      55%  { opacity: 1; transform: scale(1.13) translateY(-8px);}
+      75%  { transform: scale(0.94) translateY(3px);}
+      100% { opacity: 1; transform: scale(1) translateY(0);}
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to   { opacity: 1;}
     }
     /* Responsive */
-    @media (max-width: 500px) {
-      .prompt-container, .members-container { padding: 18px 6vw; min-width: unset; }
+    @media (max-width: 550px) {
+      .prompt-container, .members-container { padding: 14px 2vw; min-width: unset; }
       .members-title { font-size: 1.1rem;}
       ul.member-list li { font-size: 1rem;}
     }
   </style>
 </head>
 <body>
-  <!-- Animated Hearts BG -->
-  <div class="hearts-bg" aria-hidden="true">
-    <div class="heart-anim">💕</div>
-    <div class="heart-anim">💖</div>
-    <div class="heart-anim">💗</div>
-    <div class="heart-anim">💞</div>
-    <div class="heart-anim">💓</div>
-    <div class="heart-anim">💝</div>
-    <div class="heart-anim">💘</div>
-  </div>
+  <!-- Storm Clouds -->
+  <svg class="clouds" viewBox="0 0 700 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="150" cy="120" rx="110" ry="60" fill="#252e37"/>
+    <ellipse cx="260" cy="100" rx="90" ry="50" fill="#232a34"/>
+    <ellipse cx="370" cy="120" rx="120" ry="70" fill="#1b232b"/>
+    <ellipse cx="470" cy="110" rx="100" ry="50" fill="#252e37"/>
+    <ellipse cx="610" cy="120" rx="90" ry="60" fill="#232a34"/>
+  </svg>
+  <!-- Rain Animation -->
+  <div class="rain" id="rain"></div>
+  <!-- Lightning Flash -->
+  <div class="lightning"></div>
   <!-- Prompt Section -->
   <div class="prompt-container" id="prompt">
     <div class="question">
-      <span class="heart-q">💕</span>
-      DO YOU WANT SEE<b>UNDEFEATED TEAM</b>
+      <span class="storm-icon">⛈️</span>
+      DO YOU WANT TO SEE <b>UNDEFEATED TEAM</b>?
     </div>
     <div class="yesno-btns">
       <button id="yesBtn">YES</button>
       <button id="noBtn">NO</button>
     </div>
-    <div id="no-message">Salamat! Kung gusto mo makita, bumalik ka na lang ulit. 😊</div>
+    <div id="no-message">Thank you! If you want to see, just come back again. 😊</div>
   </div>
   <!-- Members Section -->
   <div class="members-container" id="members">
     <div class="members-title">
-      <span class="heart-title">💕</span>
+      <span class="storm-emoji">⛈️</span>
       Undefeated Team
-      <span class="heart-title">💕</span>
+      <span class="storm-emoji">⛈️</span>
     </div>
     <ul class="member-list">
       <li>Clark</li>
@@ -235,6 +280,25 @@
     </ul>
   </div>
   <script>
+    // Rain drops generator
+    const rain = document.getElementById('rain');
+    function createRain() {
+      rain.innerHTML = "";
+      const drops = window.innerWidth > 600 ? 60 : 30;
+      for(let i=0; i<drops; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = Math.random()*100 + 'vw';
+        drop.style.height = (40 + Math.random()*50) + 'px';
+        drop.style.animationDuration = (0.7 + Math.random()*0.5) + 's';
+        drop.style.animationDelay = (Math.random()*2) + 's';
+        rain.appendChild(drop);
+      }
+    }
+    createRain();
+    window.addEventListener('resize', createRain);
+
+    // UI logic
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const prompt = document.getElementById('prompt');
@@ -248,6 +312,12 @@
       setTimeout(() => {
         prompt.style.display = 'none';
         members.style.display = 'block';
+        // Restart animation for member list in some browsers
+        document.querySelectorAll('.member-list li').forEach(li => {
+          li.style.animation = "none";
+          void li.offsetWidth;
+          li.style.animation = "";
+        });
       }, 500);
     };
     noBtn.onclick = function() {
