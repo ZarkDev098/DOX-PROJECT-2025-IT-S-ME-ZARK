@@ -24,7 +24,6 @@
     }
     * { font-weight: bold !important; }
 
-    /* Stormy rain effect */
     .rain {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -44,7 +43,6 @@
     @keyframes raindrop {
       to { transform: translateY(110vh); }
     }
-    /* Lightning flashes */
     .lightning {
       position: fixed;
       inset: 0;
@@ -190,10 +188,10 @@
       animation: thunderShake 1.4s infinite;
     }
 
-    /* Scrollable Members List */
     .scroll-wrapper {
       position: relative;
-      max-height: 210px;
+      max-height: 220px;
+      min-height: 120px;
       overflow-y: auto;
       margin-bottom: 10px;
       border-radius: 10px;
@@ -247,7 +245,7 @@
       color: #fff;
       text-shadow: 0 0 12px #41e7ff99;
     }
-    /* Staggered animation for each member */
+    
     ul.member-list li:nth-child(1) { animation-delay: 0.4s;}
     ul.member-list li:nth-child(2) { animation-delay: 0.6s;}
     ul.member-list li:nth-child(3) { animation-delay: 0.8s;}
@@ -258,6 +256,13 @@
     ul.member-list li:nth-child(8) { animation-delay: 1.8s;}
     ul.member-list li:nth-child(9) { animation-delay: 2.0s;}
     ul.member-list li:nth-child(10) { animation-delay: 2.2s;}
+    ul.member-list li:nth-child(11) { animation-delay: 2.4s;}
+    ul.member-list li:nth-child(12) { animation-delay: 2.6s;}
+    ul.member-list li:nth-child(13) { animation-delay: 2.8s;}
+    ul.member-list li:nth-child(14) { animation-delay: 3.0s;}
+    ul.member-list li:nth-child(15) { animation-delay: 3.2s;}
+    ul.member-list li:nth-child(16) { animation-delay: 3.4s;}
+    
     @keyframes bounceInList {
       0%   { opacity: 0; transform: scale(0.7) translateY(40px);}
       55%  { opacity: 1; transform: scale(1.13) translateY(-8px);}
@@ -269,7 +274,6 @@
       to   { opacity: 1;}
     }
 
-    /* Scroll Down Arrow Animation */
     .scroll-indicator {
       position: absolute;
       left: 50%;
@@ -293,7 +297,6 @@
       opacity: 0;
       pointer-events: none;
     }
-    /* Responsive */
     @media (max-width: 550px) {
       .prompt-container, .members-container { padding: 14px 2vw; min-width: unset; }
       .members-title { font-size: 1.1rem;}
@@ -303,7 +306,7 @@
   </style>
 </head>
 <body>
-  <!-- Storm Clouds -->
+  
   <svg class="clouds" viewBox="0 0 700 180" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="150" cy="120" rx="110" ry="60" fill="#252e37"/>
     <ellipse cx="260" cy="100" rx="90" ry="50" fill="#232a34"/>
@@ -311,11 +314,11 @@
     <ellipse cx="470" cy="110" rx="100" ry="50" fill="#252e37"/>
     <ellipse cx="610" cy="120" rx="90" ry="60" fill="#232a34"/>
   </svg>
-  <!-- Rain Animation -->
+  
   <div class="rain" id="rain"></div>
-  <!-- Lightning Flash -->
+  
   <div class="lightning"></div>
-  <!-- Prompt Section -->
+
   <div class="prompt-container" id="prompt">
     <div class="question">
       <span class="storm-icon">⚡️</span>
@@ -327,7 +330,7 @@
     </div>
     <div id="no-message">Thank you! If you want to see, just come back again. 😊</div>
   </div>
-  <!-- Members Section -->
+  
   <div class="members-container" id="members">
     <div class="members-title">
       <span class="storm-emoji">⛈️</span>
@@ -346,13 +349,20 @@
         <li>Shayun bae</li>
         <li>Sanji</li>
         <li>Hikari</li>
+        <li>Leon</li>
+        <li>Yuri</li>
+        <li>Kenzo</li>
+        <li>Minato</li>
+        <li>Aya</li>
+        <li>Riku</li>
+        
       </ul>
       <div class="scroll-indicator" id="scrollIndicator">▼</div>
     </div>
   </div>
   <audio id="thunder-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c78c9f99.mp3"></audio>
   <script>
-    // Rain drops generator
+    
     const rain = document.getElementById('rain');
     function createRain() {
       rain.innerHTML = "";
@@ -370,7 +380,7 @@
     createRain();
     window.addEventListener('resize', createRain);
 
-    // Lightning shake and thunder sound
+    
     const lightning = document.querySelector('.lightning');
     const boxes = [document.getElementById('prompt'), document.getElementById('members')];
     const thunderAudio = document.getElementById('thunder-audio');
@@ -393,7 +403,7 @@
       }
     });
 
-    // UI logic
+    
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const prompt = document.getElementById('prompt');
@@ -407,7 +417,6 @@
       setTimeout(() => {
         prompt.style.display = 'none';
         members.style.display = 'block';
-        // Restart animation for member list in some browsers
         document.querySelectorAll('.member-list li').forEach(li => {
           li.style.animation = "none";
           void li.offsetWidth;
@@ -420,26 +429,21 @@
       noMessage.style.display = 'block';
     };
 
-    // Scroll Indicator Logic
+    
     const scrollWrapper = document.getElementById('scrollWrapper');
     const scrollIndicator = document.getElementById('scrollIndicator');
     function checkScrollIndicator() {
-      // Show if scrollable
-      if (scrollWrapper.scrollHeight > scrollWrapper.clientHeight + 4) {
+      
+      if (scrollWrapper.scrollHeight > scrollWrapper.clientHeight + 2 &&
+          scrollWrapper.scrollTop + scrollWrapper.clientHeight < scrollWrapper.scrollHeight - 2) {
         scrollIndicator.classList.remove('hide');
+      } else if (scrollWrapper.scrollHeight > scrollWrapper.clientHeight + 2) {
+        scrollIndicator.classList.add('hide');
       } else {
         scrollIndicator.classList.add('hide');
       }
     }
-    // Hide arrow when scrolled to bottom
-    scrollWrapper.addEventListener('scroll', () => {
-      if (scrollWrapper.scrollTop + scrollWrapper.clientHeight >= scrollWrapper.scrollHeight - 2) {
-        scrollIndicator.classList.add('hide');
-      } else {
-        scrollIndicator.classList.remove('hide');
-      }
-    });
-    // Also check on window resize and after page load
+    scrollWrapper.addEventListener('scroll', checkScrollIndicator);
     window.addEventListener('resize', checkScrollIndicator);
     window.addEventListener('DOMContentLoaded', checkScrollIndicator);
   </script>
