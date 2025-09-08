@@ -1,166 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tl">
 <head>
   <meta charset="UTF-8">
-  <title>I Love You - Animated</title>
+  <title>Undefeated Members</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body { height: 100%; margin: 0; }
     body {
-      background: radial-gradient(circle at 70% 30%, #ffb6e6 0%, #b3e0ff 100%);
-      height: 100vh;
+      background: linear-gradient(135deg, #d1fae5 0%, #fef9c3 100%);
       font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      margin: 0;
     }
-    .love-anim-container {
-      text-align: center;
-      padding: 40px 50px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      position: relative;
-      z-index: 1;
-      display: none;
-      animation: fadein 0.8s;
-    }
-    @keyframes fadein {
-      from { opacity: 0; transform: scale(0.8);}
-      to   { opacity: 1; transform: scale(1);}
-    }
-    .heart {
-      color: #ff3370;
-      font-size: 60px;
-      margin-bottom: 10px;
-      animation: heartBeat 1.2s infinite;
-      display: inline-block;
-      filter: drop-shadow(0 0 10px #ff3370cc);
-    }
-    @keyframes heartBeat {
-      0%, 100%   { transform: scale(1); }
-      10%, 30%   { transform: scale(1.2); }
-      20%        { transform: scale(0.95);}
-      40%        { transform: scale(1.12);}
-      60%        { transform: scale(0.97);}
-      80%        { transform: scale(1.04);}
-    }
-    .iloveyou-text {
-      font-size: 2.8rem;
-      font-weight: bold;
-      color: #ff3370;
-      letter-spacing: 3px;
-      text-shadow: 0 2px 15px #ffb6e6cc;
-      animation: loveFadeInOut 2.5s infinite;
-      margin: 0 0 10px 0;
-    }
-    @keyframes loveFadeInOut {
-      0%   { opacity: 0; transform: scale(0.7);}
-      10%  { opacity: 1; transform: scale(1.1);}
-      50%  { opacity: 1; transform: scale(1);}
-      80%  { opacity: 1; transform: scale(1.15);}
-      100% { opacity: 0; transform: scale(0.7);}
-    }
-    .subtext {
-      font-size: 1.2rem;
-      color: #444;
-      opacity: 0.8;
-      animation: subtextAnim 2.5s infinite;
-      animation-delay: 1.25s;
-    }
-    @keyframes subtextAnim {
-      0%,100% { opacity: 0;}
-      30%,90% { opacity: 1;}
-    }
-    /* Overlay yes/no modal */
-    #yesno-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.9);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-      transition: opacity 0.5s;
-    }
-    #yesno-modal.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .modal-box {
-      background: white;
-      padding: 35px 45px;
+    .prompt-container, .members-container {
+      background: #fff;
+      padding: 35px 40px;
       border-radius: 16px;
-      box-shadow: 0 8px 32px #0003;
+      box-shadow: 0 4px 24px #0002;
       text-align: center;
+      min-width: 300px;
+      transition: box-shadow 0.2s;
     }
-    .modal-question {
-      font-size: 1.4rem;
-      margin-bottom: 22px;
-      color: #ff3370;
-      font-weight: 500;
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      color: #155724;
+      font-weight: 600;
     }
-    .modal-btns button {
-      font-size: 1.1rem;
-      padding: 11px 34px;
-      margin: 0 18px;
+    .yesno-btns button {
+      font-size: 1.08rem;
+      padding: 10px 28px;
+      margin: 0 12px;
       border-radius: 7px;
       border: none;
-      background: #ff3370;
+      background: #12b886;
       color: #fff;
       cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 1px;
       transition: background 0.2s, transform 0.2s;
     }
-    .modal-btns button:hover {
-      background: #c9184a;
+    .yesno-btns button:hover {
+      background: #087f5b;
       transform: scale(1.07);
     }
     #no-message {
-      margin-top: 26px;
-      color: #6b21a8;
+      margin-top: 23px;
+      color: #c2410c;
       font-size: 1.1rem;
       font-weight: bold;
       display: none;
-      text-align: center;
+    }
+    .members-container {
+      display: none;
+      animation: fadeIn 0.7s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    .members-title {
+      font-size: 1.4rem;
+      color: #0e7490;
+      margin-bottom: 17px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    ul.member-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul.member-list li {
+      font-size: 1.12rem;
+      background: #e0f2fe;
+      margin: 8px 0;
+      padding: 9px 0;
+      border-radius: 6px;
+      color: #0369a1;
+      font-weight: 500;
+      box-shadow: 0 2px 8px #38bdf81a;
     }
   </style>
 </head>
 <body>
-  <!-- Yes/No Modal -->
-  <div id="yesno-modal">
-    <div class="modal-box">
-      <div class="modal-question">Do you want to see Undefeated Members</div>
-      <div class="modal-btns">
-        <button id="yes-btn">Yes</button>
-        <button id="no-btn">No</button>
-      </div>
-      <div id="no-message">Maybe next time! 😊</div>
+  <!-- Prompt Section -->
+  <div class="prompt-container" id="prompt">
+    <div class="question">Gusto mo bang makita ang mga <b>undefeated members</b>?</div>
+    <div class="yesno-btns">
+      <button id="yesBtn">Oo</button>
+      <button id="noBtn">Hindi</button>
     </div>
+    <div id="no-message">Salamat! Kung gusto mo makita, bumalik ka na lang ulit. 😊</div>
   </div>
-  <!-- Main Content -->
-  <div class="love-anim-container" id="loveContent">
-    <div class="heart">❤️</div>
-    <div class="iloveyou-text"> CLARK - SANJI - RAI</div>
-    <div class="subtext">UNDEFEATED ON TOP</div>
+
+  <!-- Members Section -->
+  <div class="members-container" id="members">
+    <div class="members-title">🏆 Undefeated Members 🏆</div>
+    <ul class="member-list">
+      <li>Juan Dela Cruz</li>
+      <li>Maria Santos</li>
+      <li>Carlos Reyes</li>
+      <li>Jenny Mercado</li>
+      <li>Michael Tan</li>
+    </ul>
   </div>
+
   <script>
-    const yesBtn = document.getElementById('yes-btn');
-    const noBtn = document.getElementById('no-btn');
-    const yesnoModal = document.getElementById('yesno-modal');
-    const loveContent = document.getElementById('loveContent');
-    const noMsg = document.getElementById('no-message');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const prompt = document.getElementById('prompt');
+    const members = document.getElementById('members');
+    const noMessage = document.getElementById('no-message');
 
     yesBtn.onclick = function() {
-      yesnoModal.classList.add('hide');
-      setTimeout(()=>{
-        yesnoModal.style.display = 'none';
-        loveContent.style.display = 'block';
-      }, 500);
+      prompt.style.display = 'none';
+      members.style.display = 'block';
     };
     noBtn.onclick = function() {
-      noMsg.style.display = 'block';
+      noMessage.style.display = 'block';
     };
   </script>
 </body>
