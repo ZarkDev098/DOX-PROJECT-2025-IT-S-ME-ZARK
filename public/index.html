@@ -261,27 +261,6 @@
       100% { opacity: 1; transform: scale(1) translateY(0);}
     }
     @keyframes fadeIn { from { opacity: 0;} to   { opacity: 1;} }
-    /* Scroll Button */
-    .scroll-bottom-btn {
-      display: inline-block;
-      background: linear-gradient(90deg, #41e7ff 0%, #124c5f 100%);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      padding: 10px 26px;
-      border: none;
-      border-radius: 8px;
-      margin: 5px auto 0 auto;
-      box-shadow: 0 2px 8px #41e;
-      cursor: pointer;
-      letter-spacing: 1.2px;
-      transition: background 0.2s, color 0.2s, transform 0.1s;
-    }
-    .scroll-bottom-btn:hover {
-      background: linear-gradient(90deg, #fff 0%, #41e7ff 100%);
-      color: #124c5f;
-      transform: scale(1.07);
-    }
     @media (max-width: 550px) {
       .prompt-container, .members-container { padding: 14px 2vw; min-width: unset; }
       .members-title { font-size: 1.1rem;}
@@ -339,7 +318,6 @@
         <!-- Add as many members as you want! -->
       </ul>
     </div>
-    <button class="scroll-bottom-btn" id="scrollBottomBtn">Scroll to Bottom</button>
   </div>
   <audio id="thunder-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c78c9f99.mp3"></audio>
   <script>
@@ -407,16 +385,6 @@
     };
     noBtn.onclick = function() {
       noMessage.style.display = 'block';
-    };
-
-    // Scroll to bottom button
-    const scrollWrapper = document.getElementById('scrollWrapper');
-    const scrollBottomBtn = document.getElementById('scrollBottomBtn');
-    scrollBottomBtn.onclick = function() {
-      scrollWrapper.scrollTo({
-        top: scrollWrapper.scrollHeight,
-        behavior: 'smooth'
-      });
     };
   </script>
 </body>
