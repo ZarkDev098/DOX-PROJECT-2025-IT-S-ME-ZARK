@@ -1,388 +1,285 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title> VD-777 TEAM ⚡</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPW AutoLikers</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; font-family: "Poppins", sans-serif; }
     body {
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      background: linear-gradient(120deg, #232526 0%, #414345 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      background-color: #0a0f1c; color: #fff;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      height: 100vh; margin: 0;
     }
-    * { font-weight: bold !important; }
-
-    .rain {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 10;
-      overflow: hidden;
+    h1 { font-size: 2rem; color: #4da3ff; margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(77,163,255,.6); }
+    .tutorial-btn {
+      background: linear-gradient(90deg,#3b82f6,#2563eb);
+      border:none; border-radius:8px; padding:6px 12px;
+      color:white; font-size:.9rem; cursor:pointer; margin-bottom:1.5rem;
+      transition:all .3s ease;
     }
-    .drop {
-      position: absolute;
-      bottom: 100%;
-      width: 2px;
-      height: 60px;
-      background: linear-gradient(to bottom, #7fd0ff 50%, #fff0 100%);
-      opacity: 0.35;
-      animation: raindrop 0.8s linear infinite;
+    .tutorial-btn:hover { transform:scale(1.05);
+      background:linear-gradient(90deg,#2563eb,#3b82f6);}
+    .card {
+      background:rgba(255,255,255,.05);
+      border-radius:15px; padding:30px; width:90%; max-width:400px;
+      box-shadow:0 0 25px rgba(0,0,0,.4);
+      backdrop-filter:blur(8px); text-align:center;
     }
-    @keyframes raindrop { to { transform: translateY(110vh); } }
-    .lightning {
-      position: fixed;
-      inset: 0;
-      background: #fff;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 30;
-      animation: lightningFlash 5s infinite;
+    label {display:block;text-align:left;font-size:.9rem;color:#b3e5ff;
+      margin-top:10px;margin-bottom:5px;text-shadow:0 0 6px rgba(77,163,255,.4);}
+    input,select{
+      width:100%;padding:12px 15px;margin-bottom:10px;border:2px solid transparent;
+      border-radius:10px;background:#111827;color:white;font-size:1rem;outline:none;
+      animation:rgbBorder 4s linear infinite;
+      border-image:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet,red) 1;
     }
-    @keyframes lightningFlash {
-      0%, 93%, 100% { opacity: 0; }
-      94% { opacity: 0.7; }
-      95% { opacity: 0; }
-      97% { opacity: 0.9; }
-      98% { opacity: 0; }
+    @keyframes rgbBorder {
+      0%{border-image-source:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet,red);}
+      100%{border-image-source:linear-gradient(450deg,red,orange,yellow,lime,cyan,blue,violet,red);}
     }
-    .shake { animation: shakeBox 0.25s; }
-    @keyframes shakeBox {
-      0% { transform: translate(0, 0);}
-      15% { transform: translate(-6px, 3px);}
-      30% { transform: translate(5px, -5px);}
-      45% { transform: translate(-6px, 6px);}
-      60% { transform: translate(7px, 1px);}
-      100% { transform: translate(0, 0);}
+    button {
+      width:100%;background:linear-gradient(90deg,#22c55e,#16a34a);
+      border:none;border-radius:10px;padding:12px;color:white;
+      font-weight:bold;cursor:pointer;margin-top:10px;transition:all .3s ease;
     }
-    .clouds {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 40vh;
-      z-index: 20;
-      pointer-events: none;
-      opacity: 0.45;
-      filter: blur(1px);
-    }
-    .prompt-container, .members-container {
-      background: rgba(33,37,41,0.94);
-      border: 3px solid #41e7ff;
-      border-radius: 20px;
-      padding: 36px 36px 30px 36px;
-      box-shadow: 0 0 32px #41e7ff70, 0 2px 16px #0008;
-      text-align: center;
-      min-width: 310px;
-      z-index: 40;
-      position: relative;
-      animation: fadeinbox 1s;
-      transition: box-shadow 0.3s, border-color 0.15s;
-    }
-    @keyframes fadeinbox {
-      from { opacity: 0; transform: scale(0.8);}
-      to { opacity: 1; transform: scale(1);}
-    }
-    .question {
-      font-size: 1.3rem;
-      color: #41e7ff;
-      margin-bottom: 28px;
-      text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;
-      letter-spacing: 1.4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: thunderText 2.2s infinite alternate;
-    }
-    @keyframes thunderText {
-      0%, 60% { text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;}
-      70% { text-shadow: 0 0 22px #fff, 0 4px 12px #41e7ff;}
-      100% { text-shadow: 0 0 12px #0ff8, 0 2px 8px #000a;}
-    }
-    .storm-icon {
-      font-size: 2.3rem;
-      margin-bottom: 10px;
-      animation: thunderShake 1.3s infinite;
-      color: #fffc;
-      text-shadow: 0 0 25px #41e7ffcc, 0 0 6px #fff;
-    }
-    @keyframes thunderShake {
-      0%, 100% { transform: translateX(0);}
-      10% { transform: translateX(-2px);}
-      20% { transform: translateX(3px);}
-      22% { transform: translateX(-2px);}
-      25% { transform: translateX(2px);}
-      30% { transform: translateX(-1px);}
-      32% { transform: translateX(1px);}
-      35% { transform: translateX(0);}
-    }
-    .yesno-btns button {
-      font-size: 1.08rem;
-      padding: 12px 36px;
-      margin: 0 13px;
-      border-radius: 8px;
-      border: none;
-      background: linear-gradient(90deg, #41e7ff 0%, #124c5f 100%);
-      color: #20262b;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 2px 12px #41e7ff60;
-      transition: background 0.18s, color 0.18s, transform 0.12s;
-      outline: none;
-      border-bottom: 3px solid #41e7ff;
-      position: relative;
-      animation: fadeIn 1.1s;
-      letter-spacing: 1.2px;
-    }
-    .yesno-btns button:hover {
-      background: linear-gradient(90deg, #fff 0%, #41e7ff 100%);
-      color: #124c5f;
-      transform: scale(1.09);
-      filter: brightness(1.2);
-    }
-    #no-message {
-      margin-top: 25px;
-      color: #41e7ff;
-      font-size: 1.14rem;
-      display: none;
-      background: #232526;
-      padding: 10px 15px;
-      border-radius: 8px;
-      border: 1.5px solid #41e7ff;
-      box-shadow: 0 2px 8px #41e7ff60;
-      animation: fadeIn 0.8s;
-    }
-    .members-container {
-      display: none;
-      animation: fadeinbox 1s;
-      max-width: 360px;
-    }
-    .members-title {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 21px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      letter-spacing: 1.2px;
-      animation: thunderText 2.2s infinite alternate;
-      text-shadow: 0 0 18px #41e7ff80, 0 2px 8px #000a;
-    }
-    .members-title .storm-emoji {
-      font-size: 1.6em;
-      animation: thunderShake 1.4s infinite;
-    }
-    .scroll-wrapper {
-      position: relative;
-      max-height: 220px;
-      min-height: 120px;
-      overflow-y: auto;
-      margin-bottom: 14px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px #41e7ff20;
-      scrollbar-width: thin;
-      scrollbar-color: #41e7ff #232526;
-      background: rgba(36, 49, 62, 0.9);
-    }
-    .scroll-wrapper::-webkit-scrollbar {
-      width: 8px;
-      background: #232526;
-      border-radius: 8px;
-    }
-    .scroll-wrapper::-webkit-scrollbar-thumb {
-      background: #41e7ffb0;
-      border-radius: 8px;
-    }
-    ul.member-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    ul.member-list li {
-      font-size: 1.15rem;
-      background: #232e3a;
-      margin: 10px 0;
-      padding: 13px 0 13px 0;
-      border-radius: 8px;
-      color: #41e7ff;
-      box-shadow: 0 2px 8px #41e7ff1a;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      justify-content: center;
-      letter-spacing: 1.1px;
-      position: relative;
-      opacity: 0;
-      transform: scale(0.7) translateY(40px);
-      animation: bounceInList 0.7s forwards;
-      font-weight: bold;
-      border-left: 4px solid #41e7ff;
-      border-right: 4px solid #41e7ff;
-      text-shadow: 0 0 8px #41e7ff40;
-    }
-    ul.member-list li::before {
-      content: "⚡";
-      font-size: 1.3em;
-      margin-right: 10px;
-      animation: thunderShake 1.4s infinite;
-      color: #fff;
-      text-shadow: 0 0 12px #41e7ff99;
-    }
-    /* Staggered animation for each member */
-    ul.member-list li:nth-child(1) { animation-delay: 0.4s;}
-    ul.member-list li:nth-child(2) { animation-delay: 0.6s;}
-    ul.member-list li:nth-child(3) { animation-delay: 0.8s;}
-    ul.member-list li:nth-child(4) { animation-delay: 1.0s;}
-    ul.member-list li:nth-child(5) { animation-delay: 1.2s;}
-    ul.member-list li:nth-child(6) { animation-delay: 1.4s;}
-    ul.member-list li:nth-child(7) { animation-delay: 1.6s;}
-    ul.member-list li:nth-child(8) { animation-delay: 1.8s;}
-    ul.member-list li:nth-child(9) { animation-delay: 2.0s;}
-    ul.member-list li:nth-child(10) { animation-delay: 2.2s;}
-    ul.member-list li:nth-child(11) { animation-delay: 2.4s;}
-    ul.member-list li:nth-child(12) { animation-delay: 2.6s;}
-    ul.member-list li:nth-child(13) { animation-delay: 2.8s;}
-    ul.member-list li:nth-child(14) { animation-delay: 3.0s;}
-    ul.member-list li:nth-child(15) { animation-delay: 3.2s;}
-    ul.member-list li:nth-child(16) { animation-delay: 3.4s;}
-    @keyframes bounceInList {
-      0%   { opacity: 0; transform: scale(0.7) translateY(40px);}
-      55%  { opacity: 1; transform: scale(1.13) translateY(-8px);}
-      75%  { transform: scale(0.94) translateY(3px);}
-      100% { opacity: 1; transform: scale(1) translateY(0);}
-    }
-    @keyframes fadeIn { from { opacity: 0;} to   { opacity: 1;} }
-    @media (max-width: 550px) {
-      .prompt-container, .members-container { padding: 14px 2vw; min-width: unset; }
-      .members-title { font-size: 1.1rem;}
-      .scroll-wrapper { max-height: 130px;}
-      ul.member-list li { font-size: 1rem;}
-    }
+    button:disabled{opacity:.5;cursor:not-allowed;}
+    button:hover:not(:disabled){transform:scale(1.05);
+      background:linear-gradient(90deg,#16a34a,#22c55e);}
+    .loading{margin-top:10px;color:#4da3ff;font-weight:500;display:none;}
+    .response{margin-top:15px;padding:12px;background:rgba(255,255,255,.08);
+      border-radius:10px;white-space:pre-wrap;font-size:.9rem;color:#b3e5ff;}
+    footer{margin-top:20px;font-size:.9rem;color:#666;}
+    .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;
+      background:rgba(0,0,0,.8);justify-content:center;align-items:center;}
+    .modal-content{position:relative;width:90%;max-width:400px;aspect-ratio:9/16;
+      background:black;border-radius:10px;overflow:hidden;
+      box-shadow:0 0 20px rgba(0,0,0,.5);}
+    .modal iframe{width:100%;height:100%;border:none;}
+    .close{position:absolute;top:10px;right:15px;color:white;font-size:1.5rem;
+      cursor:pointer;z-index:10;}
   </style>
 </head>
 <body>
-  <!-- Storm Clouds -->
-  <svg class="clouds" viewBox="0 0 700 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="150" cy="120" rx="110" ry="60" fill="#252e37"/>
-    <ellipse cx="260" cy="100" rx="90" ry="50" fill="#232a34"/>
-    <ellipse cx="370" cy="120" rx="120" ry="70" fill="#1b232b"/>
-    <ellipse cx="470" cy="110" rx="100" ry="50" fill="#252e37"/>
-    <ellipse cx="610" cy="120" rx="90" ry="60" fill="#232a34"/>
-  </svg>
-  <div class="rain" id="rain"></div>
-  <div class="lightning"></div>
-  <div class="prompt-container" id="prompt">
-    <div class="question">
-      <span class="storm-icon">⚡️</span>
-      DO YOU WANT TO SEE <b>VD-777 TEAM</b>
-    </div>
-    <div class="yesno-btns">
-      <button id="yesBtn">YES</button>
-      <button id="noBtn">NO</button>
-    </div>
-    <div id="no-message">Thank you! If you want to see, just come back again. 😊</div>
+  <div class="card">
+    <h1>RPW AutoLikers</h1>
+    <p style="margin-top:-5px;color:#b3e5ff;">Tutorial how to get fb cookie</p>
+    <button class="tutorial-btn" id="openTutorial">🎥 Watch Tutorial</button>
+
+    <label for="cookie">Facebook Cookie</label>
+    <input type="text" id="cookie" placeholder="Enter your cookie" />
+
+    <label for="link">Facebook Post Link</label>
+    <input type="text" id="link" placeholder="Enter Facebook link" />
+
+    <label for="reaction">Select Reaction Type</label>
+    <select id="reaction">
+      <option value="LIKE">LIKE</option>
+      <option value="LOVE">LOVE</option>
+      <option value="CARE">CARE</option>
+      <option value="HAHA">HAHA</option>
+      <option value="WOW">WOW</option>
+      <option value="SAD">SAD</option>
+      <option value="ANGRY">ANGRY</option>
+    </select>
+
+    <button id="sendBtn">Send Boost</button>
+    <div class="loading" id="loading">⏳ Sending request...</div>
+    <div class="response" id="responseBox"></div>
   </div>
-  <div class="members-container" id="members">
-    <div class="members-title">
-      <span class="storm-emoji">⛈️</span>
-      Undefeated Team
-      <span class="storm-emoji">⛈️</span>
-    </div>
-    <div class="scroll-wrapper" id="scrollWrapper">
-      <ul class="member-list">
-        <li>Clark</li>
-        <li>Shane</li>
-        <li>Akia</li>
-        <li>Ken</li>
-        <li>Kyoto</li>
-        <li>Omai</li>
-        <li>Misaki</li>
-        <li>Shayun bae</li>
-        <li>Sanji</li>
-        <li>Hikari</li>
-        <li>Nanang</li>
-        <li>Ashley</li>
-        <li>Geo</li>
-        <!-- Add as many members as you want! -->
-      </ul>
+
+  <footer>© 2025 RPW AutoLikers</footer>
+
+  <!-- Video Popup Modal -->
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <iframe id="videoFrame" src="" allowfullscreen></iframe>
     </div>
   </div>
-  <audio id="thunder-audio" src="zark.mp3"></audio>
-  <script>
-    // Rain drops generator
-    const rain = document.getElementById('rain');
-    function createRain() {
-      rain.innerHTML = "";
-      const drops = window.innerWidth > 600 ? 60 : 30;
-      for(let i=0; i<drops; i++) {
-        const drop = document.createElement('div');
-        drop.className = 'drop';
-        drop.style.left = Math.random()*100 + 'vw';
-        drop.style.height = (40 + Math.random()*50) + 'px';
-        drop.style.animationDuration = (0.7 + Math.random()*0.5) + 's';
-        drop.style.animationDelay = (Math.random()*2) + 's';
-        rain.appendChild(drop);
-      }
+<script>
+  const sendBtn = document.getElementById("sendBtn");
+  const responseBox = document.getElementById("responseBox");
+  const loading = document.getElementById("loading");
+  let cooldownTimer;
+
+  const COOLDOWN_KEY = "boostCooldownEnd";
+  const LIMIT_KEY = "boostLimitEnd";
+
+  // --- Restore cooldown or limit if exists ---
+  window.addEventListener("load", () => {
+    const cooldownEnd = localStorage.getItem(COOLDOWN_KEY);
+    const limitEnd = localStorage.getItem(LIMIT_KEY);
+    const now = Date.now();
+
+    if (limitEnd && now < parseInt(limitEnd)) {
+      const remainingMinutes = Math.ceil((parseInt(limitEnd) - now) / 60000);
+      startCountdownTimer(remainingMinutes, "Your daily limit has reset!", "limit");
+    } else if (cooldownEnd && now < parseInt(cooldownEnd)) {
+      const remainingMinutes = Math.ceil((parseInt(cooldownEnd) - now) / 60000);
+      startCountdownTimer(remainingMinutes, "You can boost again!", "cooldown");
+    } else {
+      localStorage.removeItem(COOLDOWN_KEY);
+      localStorage.removeItem(LIMIT_KEY);
     }
-    createRain();
-    window.addEventListener('resize', createRain);
+  });
 
-    // Lightning shake and thunder sound
-    const lightning = document.querySelector('.lightning');
-    const boxes = [document.getElementById('prompt'), document.getElementById('members')];
-    const thunderAudio = document.getElementById('thunder-audio');
-    let thunderAllowed = false;
-    document.body.addEventListener('mousedown', ()=>{thunderAllowed=true;});
-    document.body.addEventListener('touchstart', ()=>{thunderAllowed=true;});
-    lightning.addEventListener('animationiteration', ()=>{
-      if(Math.random()<0.7){
-        boxes.forEach(box=>{
-          if(box.style.display!=='none'){
-            box.classList.add('shake');
-            setTimeout(()=>box.classList.remove('shake'), 400);
-          }
-        });
-        if (thunderAllowed && Math.random()<0.6) {
-          thunderAudio.currentTime = 0;
-          thunderAudio.volume = 0.35 + Math.random()*0.3;
-          thunderAudio.play();
-        }
+  // ---- Universal Cooldown/Limit Timer ----
+  function startCountdownTimer(minutes, endText = "You can boost again!", type = "cooldown") {
+    const endTime = Date.now() + minutes * 60 * 1000;
+
+    if (type === "limit") {
+      localStorage.setItem(LIMIT_KEY, endTime);
+    } else {
+      localStorage.setItem(COOLDOWN_KEY, endTime);
+    }
+
+    sendBtn.disabled = true;
+
+    function update() {
+      const remaining = endTime - Date.now();
+      if (remaining <= 0) {
+        clearInterval(cooldownTimer);
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Boost";
+        responseBox.innerHTML = `✅ ${endText}`;
+        responseBox.style.color = "#4caf50";
+
+        localStorage.removeItem(COOLDOWN_KEY);
+        localStorage.removeItem(LIMIT_KEY);
+        return;
       }
-    });
 
-    // UI logic
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const prompt = document.getElementById('prompt');
-    const members = document.getElementById('members');
-    const noMessage = document.getElementById('no-message');
+      const hrs = Math.floor(remaining / 3600000);
+      const mins = Math.floor((remaining % 3600000) / 60000);
+      const secs = Math.floor((remaining % 60000) / 1000);
 
-    yesBtn.onclick = function() {
-      prompt.style.opacity = '1';
-      prompt.style.transition = 'opacity 0.5s';
-      prompt.style.opacity = '0';
-      setTimeout(() => {
-        prompt.style.display = 'none';
-        members.style.display = 'block';
-        document.querySelectorAll('.member-list li').forEach(li => {
-          li.style.animation = "none";
-          void li.offsetWidth;
-          li.style.animation = "";
-        });
-      }, 500);
-    };
-    noBtn.onclick = function() {
-      noMessage.style.display = 'block';
-    };
-  </script>
+      let display = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}:${secs.toString().padStart(2, "0")}`;
+      sendBtn.innerText = type === "limit" ? `🚫 Limit ${display}` : `🕒 Wait ${display}`;
+    }
+
+    update();
+    cooldownTimer = setInterval(update, 1000);
+  }
+
+  // --- Main Boost Handler ---
+  sendBtn.addEventListener("click", async () => {
+    const cookie = document.getElementById("cookie").value.trim();
+    const link = document.getElementById("link").value.trim();
+    const reaction = document.getElementById("reaction").value;
+
+    if (!cookie || !link) {
+      responseBox.innerText = "⚠️ Please fill all fields.";
+      return;
+    }
+
+    responseBox.innerText = "";
+    responseBox.style.color = "#fff";
+    loading.style.display = "block";
+    sendBtn.disabled = true;
+    sendBtn.innerText = "⏳ Sending...";
+
+    try {
+      const res = await fetch("/api/boost", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cookie, link, reaction }),
+      });
+
+      const data = await res.json();
+      console.log("📦 Full API Response:", data);
+
+      loading.style.display = "none";
+
+      // --- SUCCESS ---
+      if (res.ok && data.success === true) {
+        const used = data.uses_used ?? "?";
+        const max = data.uses_max ?? "?";
+        const msg = data.message || "Boost sent successfully!";
+        responseBox.innerHTML = `✅ <strong>${msg}</strong><br>Uses: ${used}/${max}`;
+        responseBox.style.color = "#4caf50";
+        console.log(`✅ Success: ${msg} (${used}/${max} uses)`);
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Boost";
+        localStorage.removeItem(COOLDOWN_KEY);
+        localStorage.removeItem(LIMIT_KEY);
+
+      // --- COOLDOWN ---
+      } else if (data.status === "cooldown") {
+        const cdMsg = data.error || "You're in cooldown.";
+        responseBox.innerHTML = `🕒 <strong>${cdMsg}</strong>`;
+        responseBox.style.color = "#ffb300";
+        console.warn(`🕒 Cooldown: ${cdMsg}`);
+
+        const match = cdMsg.match(/(\d+)\s*minute/);
+        if (match) {
+          startCountdownTimer(parseInt(match[1]), "You can boost again!", "cooldown");
+        } else {
+          sendBtn.disabled = false;
+          sendBtn.innerText = "Send Boost";
+        }
+
+      // --- DAILY LIMIT ---
+      } else if (data.status === "limit") {
+        const limitMsg = data.error || "Daily limit reached.";
+        responseBox.innerHTML = `🚫 <strong>${limitMsg}</strong>`;
+        responseBox.style.color = "#ff5252";
+        console.warn(`🚫 Limit: ${limitMsg}`);
+
+        const match = limitMsg.match(/(\d+)\s*hour.*?(\d+)\s*minute/);
+        if (match) {
+          const hours = parseInt(match[1]);
+          const minutes = parseInt(match[2]);
+          const totalMinutes = hours * 60 + minutes;
+          startCountdownTimer(totalMinutes, "Your daily limit has reset!", "limit");
+        } else {
+          sendBtn.disabled = false;
+          sendBtn.innerText = "Send Boost";
+        }
+
+      // --- OTHER ERRORS ---
+      } else {
+        const errorMsg = data.message || data.error || "Unknown API error.";
+        responseBox.innerHTML = `❌ <strong>Failed:</strong> ${errorMsg}`;
+        responseBox.style.color = "#f44336";
+        console.error("❌ API Error:", errorMsg);
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Boost";
+      }
+
+    } catch (err) {
+      loading.style.display = "none";
+      sendBtn.disabled = false;
+      sendBtn.innerText = "Send Boost";
+      console.error("❌ Request Error:", err);
+      responseBox.innerHTML = `⚠️ <strong>Error:</strong> ${err.message}`;
+      responseBox.style.color = "#f44336";
+    }
+  });
+
+  // --- Tutorial Modal ---
+  const modal = document.getElementById("videoModal");
+  const openBtn = document.getElementById("openTutorial");
+  const closeBtn = document.getElementById("closeModal");
+  const videoFrame = document.getElementById("videoFrame");
+
+  openBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+    videoFrame.src = "https://www.youtube.com/embed/bVDBz1vx9BA";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    videoFrame.src = "";
+  });
+
+  window.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      videoFrame.src = "";
+    }
+  });
+      </script>
 </body>
 </html>
