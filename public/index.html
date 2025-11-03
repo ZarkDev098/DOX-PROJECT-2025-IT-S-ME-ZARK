@@ -3,122 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Kitty Live</title>
+    <title>Private Website List</title>
     <style>
         body {
-            background-color: #f7d2c4;
+            font-family: Arial, sans-serif;
         }
-        .hello-kitty {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 100px auto;
+        #login-form {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .face {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background-color: #fff;
-            border-radius: 50%;
-            top: 25px;
-            left: 25px;
+        #private-list {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .ear-left {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: #fff;
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-        }
-        .ear-right {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: #fff;
-            border-radius: 50%;
-            top: 0;
-            right: 0;
-        }
-        .eye-left {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #000;
-            border-radius: 50%;
-            top: 60px;
-            left: 40px;
-        }
-        .eye-right {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #000;
-            border-radius: 50%;
-            top: 60px;
-            right: 40px;
-        }
-        .nose {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #000;
-            border-radius: 50%;
-            top: 90px;
-            left: 70px;
-        }
-        .mouth {
-            position: absolute;
-            width: 50px;
-            height: 10px;
-            background-color: #000;
-            border-radius: 50px;
-            top: 110px;
-            left: 50px;
-        }
-        .whisker-left {
-            position: absolute;
-            width: 50px;
-            height: 5px;
-            background-color: #000;
-            top: 80px;
-            left: 20px;
-            transform: rotate(20deg);
-        }
-        .whisker-right {
-            position: absolute;
-            width: 50px;
-            height: 5px;
-            background-color: #000;
-            top: 80px;
-            right: 20px;
-            transform: rotate(-20deg);
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="hello-kitty">
-        <div class="ear-left"></div>
-        <div class="ear-right"></div>
-        <div class="face">
-            <div class="eye-left"></div>
-            <div class="eye-right"></div>
-            <div class="nose"></div>
-            <div class="mouth"></div>
-            <div class="whisker-left"></div>
-            <div class="whisker-right"></div>
-        </div>
+    <form id="login-form">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter username">
+        <br><br>
+        <input type="password" id="password" placeholder="Enter password">
+        <br><br>
+        <button type="button" onclick="checkLogin()">Login</button>
+    </form>
+
+    <div id="private-list" class="hidden">
+        <h2>Private Website List</h2>
+        <ul>
+            <li><a href="https:                                                          
+            <li><a href="https://example2.com" target="_blank">Private Website 2</a></li>
+            <li><a href="https:                                                          
+        </ul>
     </div>
 
     <script>
-        // Add animation to the eyes
-        const eyes = document.querySelectorAll('.eye-left, .eye-right');
-        setInterval(() => {
-            eyes.forEach(eye => {
-                eye.style.background = eye.style.background === 'rgb(0, 0, 0)' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)';
-            });
-        }, 500);
+        function checkLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            if (username === "admin" && password === "password") {
+                document.getElementById("private-list").classList.remove("hidden");
+                document.getElementById("login-form").classList.add("hidden");
+            } else {
+                alert("Incorrect username or password");
+            }
+        }
     </script>
 </body>
 </html>
