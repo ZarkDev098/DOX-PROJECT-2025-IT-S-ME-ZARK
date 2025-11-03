@@ -3,20 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> NATHZ GEMINI AI </title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Hello Kitty Live</title>
+    <style>
+        body {
+            background-color: #f7d2c4;
+        }
+        .hello-kitty {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+        }
+        .face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 25px;
+            left: 25px;
+        }
+        .ear-left {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+        }
+        .ear-right {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 0;
+            right: 0;
+        }
+        .eye-left {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 60px;
+            left: 40px;
+        }
+        .eye-right {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 60px;
+            right: 40px;
+        }
+        .nose {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 90px;
+            left: 70px;
+        }
+        .mouth {
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50px;
+            top: 110px;
+            left: 50px;
+        }
+        .whisker-left {
+            position: absolute;
+            width: 50px;
+            height: 5px;
+            background-color: #000;
+            top: 80px;
+            left: 20px;
+            transform: rotate(20deg);
+        }
+        .whisker-right {
+            position: absolute;
+            width: 50px;
+            height: 5px;
+            background-color: #000;
+            top: 80px;
+            right: 20px;
+            transform: rotate(-20deg);
+        }
+    </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-box">
-            <div class="chat-log">
-                <div class="chat-message">Hello! How can I assist you today?</div>
-            </div>
-            <input type="text" id="user-input" placeholder="Type a message...">
-            <button id="send-btn">Send</button>
+    <div class="hello-kitty">
+        <div class="ear-left"></div>
+        <div class="ear-right"></div>
+        <div class="face">
+            <div class="eye-left"></div>
+            <div class="eye-right"></div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
+            <div class="whisker-left"></div>
+            <div class="whisker-right"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Add animation to the eyes
+        const eyes = document.querySelectorAll('.eye-left, .eye-right');
+        setInterval(() => {
+            eyes.forEach(eye => {
+                eye.style.background = eye.style.background === 'rgb(0, 0, 0)' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)';
+            });
+        }, 500);
+    </script>
 </body>
 </html>
