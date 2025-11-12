@@ -10,10 +10,9 @@
     
     <style>
         
-        @keyframes data-stream {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
-        }
+        /* * The old 'data-stream' animation was removed
+         * to be replaced by the new canvas rain effect.
+        */
 
         @keyframes glitch {
             0% { transform: skewX(0deg); opacity: 1; }
@@ -43,7 +42,7 @@
         
         body {
             font-family: 'Consolas', 'Courier New', monospace;
-            background-color: #000;
+            background-color: #000; /* Solid black base for the canvas */
             color: #00ff00; 
             display: flex;
             justify-content: center;
@@ -54,15 +53,33 @@
             padding: 20px;
             box-sizing: border-box;
             
-            background: repeating-linear-gradient(
-                45deg,
-                #000000 0,
-                #000000 2px,
-                #0a0a0a 2px,
-                #0a0a0a 4px
-            );
-            animation: data-stream 20s linear infinite;
+            /* * Removed old 'background' and 'animation' properties.
+             * The canvas #matrix-bg now handles the background effect.
+            */
         }
+
+        /* --- NEW STYLES --- */
+
+        /* This is the new canvas background element */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Places it behind the login card */
+        }
+        
+        /* * This ensures your #app (the login card container)
+         * stays on top of the new canvas background.
+        */
+        #app {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- END NEW STYLES --- */
+
 
         h1, h2 {
             color: #00ff00;
@@ -79,7 +96,7 @@
         
 
         .card {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.85); /* Semi-transparent so rain shows through */
             border: 1px solid #004d00;
             padding: 30px;
             border-radius: 5px;
@@ -222,6 +239,8 @@
 </head>
 <body>
 
+    <canvas id="matrix-bg"></canvas>
+
     
     <div id="app" class="hacker-terminal">
         
@@ -274,6 +293,80 @@
     </div>
 
     <script>
+        
+        // --- NEW SCRIPT for 777 Matrix Rain Effect ---
+
+        // Wait for the DOM to be ready before running the script
+        window.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas dimensions to fill the entire window
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Characters for the rain - using 7, 0, and 1 for the "777" theme
+            const matrixChars = "701";
+            const chars = matrixChars.split('');
+
+            const fontSize = 16;
+            // Calculate number of columns based on window width and font size
+            const columns = canvas.width / fontSize;
+
+            // Create an array to store the y-position of each rain drop
+            let drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1; // Start all drops at the top
+            }
+
+            function draw() {
+                // Fill the canvas with a semi-transparent black
+                // This creates the fading "tail" effect for the drops
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Set the color and font for the characters
+                ctx.fillStyle = '#00ff00'; // Match your theme's neon green
+                ctx.font = fontSize + 'px Consolas';
+
+                // Loop through each column (each drop)
+                for (let i = 0; i < drops.length; i++) {
+                    // Pick a random character from our set
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    
+                    // Draw the character at its current position
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    // Reset the drop to the top if it's off-screen
+                    // The random check makes the streams staggered
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+
+                    // Move the drop down for the next frame
+                    drops[i]++;
+                }
+            }
+
+            // Start the animation loop (approx 30 frames per second)
+            setInterval(draw, 33);
+
+            // Add a resize listener to adjust the canvas if the window size changes
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const newColumns = canvas.width / fontSize;
+                drops = [];
+                for (let x = 0; x < newColumns; x++) {
+                    drops[x] = 1;
+                }
+            });
+        });
+
+        // --- END NEW SCRIPT ---
+
+
+        // --- Your existing login script ---
         const CORRECT_KEY = "777ONTOP";
 
         function handleLogin(event) {
